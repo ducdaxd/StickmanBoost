@@ -39,9 +39,7 @@ public class Player : MonoBehaviour
         anima = GetComponent<Animator>();
 
         state = STATE.NORMAL;
-
         actUpdate = updateNormal;
-
     }
 
     public void jump()
@@ -55,12 +53,21 @@ public class Player : MonoBehaviour
             
         }
         body.isKinematic = false;
-        body.AddForce(Vector2.up*200);
+       
         //Debug.Log("jumping...");
         isOnAir = true;
         isOnGround = false;
         body.drag = 0.2f;
-        anima.Play(countJump == 1?"RollAir":"Jump");
+        if (countJump == 1)
+        {
+            anima.Play("RollAir");
+        }
+        else
+        {
+            body.AddForce(Vector2.up * 200);
+            anima.Play("Jump");
+        }
+       
         countJump++;
 
 
